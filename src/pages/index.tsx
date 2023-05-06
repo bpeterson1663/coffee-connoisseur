@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Banner } from '@/components'
 import { Card } from '@/components'
+
+import coffeeStores from '../db/coffee-stores.json'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -29,10 +31,14 @@ export default function Home() {
           <Image alt="Coffee Connoisseur" src="/static/hero-image.png" width={700} height={400} />
         </div>
         <div className={styles.cardLayout}>
-          <Card name="Dark Horse" imageUrl="/static/hero-image.png" href="/coffee-store/dark-horse" className={styles.card} />
-          <Card name="Dark Horse" imageUrl="/static/hero-image.png" href="/coffee-store/dark-horse" className={styles.card} />
-          <Card name="Dark Horse" imageUrl="/static/hero-image.png" href="/coffee-store/dark-horse" className={styles.card} />
-          <Card name="Dark Horse" imageUrl="/static/hero-image.png" href="/coffee-store/dark-horse" className={styles.card} />
+          {coffeeStores.map(coffeeStore => (
+            <Card 
+              key={coffeeStore.id}
+              name={coffeeStore.name} 
+              imageUrl={coffeeStore.imgUrl}
+              href={`/coffee-store/${coffeeStore.id}`}
+              className={styles.card} />
+          ))}
         </div>
       </main>
     </>
