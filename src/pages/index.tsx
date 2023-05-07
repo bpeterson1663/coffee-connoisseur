@@ -1,14 +1,33 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import { Banner } from '@/components'
 import { Card } from '@/components'
 
 import coffeeStores from '../db/coffee-stores.json'
-const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export async function getStaticProps() {
+  // make fetch call here
+  return {
+    data: {
+      coffeeStores,
+    }
+  }
+}
+
+interface CoffeeStore {
+  id: number
+  name: string
+  imgUrl: string
+  websiteUrl: string
+  address: string
+  neighbourhood: string
+}
+
+interface Props {
+  coffeeStores: CoffeeStore[]
+}
+export default function Home(props: Props) {
 
   function handleOnBannerBtnClick() {
     console.log("banner button clicke")
@@ -31,7 +50,7 @@ export default function Home() {
           <Image alt="Coffee Connoisseur" src="/static/hero-image.png" width={700} height={400} />
         </div>
         <div className={styles.cardLayout}>
-          {coffeeStores.map(coffeeStore => (
+          {props.coffeeStores.map(coffeeStore => (
             <Card 
               key={coffeeStore.id}
               name={coffeeStore.name} 
