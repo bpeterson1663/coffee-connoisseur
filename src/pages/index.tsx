@@ -9,8 +9,10 @@ import coffeeStores from '../db/coffee-stores.json'
 export async function getStaticProps() {
   // make fetch call here
   return {
-    data: {
-      coffeeStores,
+    props: {
+      data: {
+        coffeeStores,
+      }
     }
   }
 }
@@ -25,7 +27,9 @@ interface CoffeeStore {
 }
 
 interface Props {
-  coffeeStores: CoffeeStore[]
+  data: {
+    coffeeStores: CoffeeStore[]
+  }
 }
 export default function Home(props: Props) {
 
@@ -33,6 +37,7 @@ export default function Home(props: Props) {
     console.log("banner button clicke")
   }
 
+  const { data } = props
   return (
     <>
       <Head>
@@ -49,16 +54,21 @@ export default function Home(props: Props) {
         <div className={styles.heroImage}>
           <Image alt="Coffee Connoisseur" src="/static/hero-image.png" width={700} height={400} />
         </div>
-        <div className={styles.cardLayout}>
-          {props.coffeeStores.map(coffeeStore => (
-            <Card 
-              key={coffeeStore.id}
-              name={coffeeStore.name} 
-              imageUrl={coffeeStore.imgUrl}
-              href={`/coffee-store/${coffeeStore.id}`}
-              className={styles.card} />
-          ))}
-        </div>
+        {coffeeStores.length > 0 && (
+          <>
+            <h2 className={styles.heading2}>Toronto Stores</h2>
+            <div className={styles.cardLayout}>
+              {data.coffeeStores.map(coffeeStore => (
+                <Card 
+                  key={coffeeStore.id}
+                  name={coffeeStore.name} 
+                  imageUrl={coffeeStore.imgUrl}
+                  href={`/coffee-store/${coffeeStore.id}`}
+                  className={styles.card} />
+              ))}
+            </div>
+          </>
+        )}
       </main>
     </>
   )
