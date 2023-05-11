@@ -5,26 +5,22 @@ import { Banner } from '@/components'
 import { Card } from '@/components'
 
 import coffeeStores from '../db/coffee-stores.json'
+import { CoffeeStore } from "@/models";
+import { fetchCoffeeStores } from '@/lib/coffee-stores'
 
 export async function getStaticProps() {
   // make fetch call here
+  const coffeeStores = await fetchCoffeeStores()
   return {
     props: {
-      data: {
-        coffeeStores,
-      }
+        data: {
+            coffeeStores
+        }
     }
   }
+  
 }
 
-interface CoffeeStore {
-  id: number
-  name: string
-  imgUrl: string
-  websiteUrl: string
-  address: string
-  neighbourhood: string
-}
 
 interface Props {
   data: {
