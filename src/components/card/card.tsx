@@ -11,18 +11,18 @@ interface Props {
 }
 
 export default function Card({name, imageUrl, href}: Props) {
-    return (
-        <Link href={href} className={styles.cardLink}>
-            <div className={cls("glass", styles.container)}>
-                <div className={styles.cardHeaderapper}>
-                    <h2 className={styles.cardHeader}>{name}</h2>
+  return (
+    <Link href={href} className={styles.cardLink}>
+      <div className={cls('glass', styles.container)}>
+        <div className={styles.cardHeaderapper}>
+          <h2 className={styles.cardHeader}>{name}</h2>
 
-                </div>
-                <div className={styles.cardImageWrapper}>
+        </div>
+        <div className={styles.cardImageWrapper}>
 
-                </div>
-                <Image className={styles.cardImage} alt={name} src={imageUrl} width={260} height={160}/>
-            </div>
-        </Link>
-    )
+        </div>
+        <Image className={styles.cardImage} alt={name} src={imageUrl} width={260} height={160}/>
+      </div>
+    </Link>
+  )
 }

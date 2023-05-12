@@ -5,7 +5,7 @@ import { Banner } from '@/components'
 import { Card } from '@/components'
 
 import coffeeStores from '../db/coffee-stores.json'
-import { CoffeeStore } from "@/models";
+import { CoffeeStore } from '@/models'
 import { fetchCoffeeStores } from '@/lib/coffee-stores'
 
 export async function getStaticProps() {
@@ -13,9 +13,9 @@ export async function getStaticProps() {
   const coffeeStores = await fetchCoffeeStores()
   return {
     props: {
-        data: {
-            coffeeStores
-        }
+      data: {
+        coffeeStores
+      }
     }
   }
   
@@ -30,7 +30,7 @@ interface Props {
 export default function Home(props: Props) {
 
   function handleOnBannerBtnClick() {
-    console.log("banner button clicke")
+    console.log('banner button clicke')
   }
 
   const { data } = props
@@ -43,7 +43,7 @@ export default function Home(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-      <Banner
+        <Banner
           buttonText="View stores nearby"
           handleOnClick={handleOnBannerBtnClick}
         />

@@ -1,11 +1,12 @@
-import { useRouter } from "next/router";
-import Link from "next/link"
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 import coffeeStores from '../../db/coffee-stores.json'
-import Head from "next/head";
+import Head from 'next/head'
 import styles from './coffee-store.module.css'
-import Image from "next/image";
+import Image from 'next/image'
 import cls from 'classnames'
+import { fetchCoffeeStores } from '@/lib/coffee-stores'
 
 interface StaticProps {
   params: {
@@ -13,26 +14,34 @@ interface StaticProps {
   }
 }
 
-export function getStaticProps(staticProps: StaticProps) {
+export async function getStaticProps(staticProps: StaticProps) {
   const { params } = staticProps
+  const coffeeStores = await fetchCoffeeStores()
   return {
     props: {
-      coffeeStore: coffeeStores.find(coffeeStore => coffeeStore.id.toString() === params.id)
-    }
+      coffeeStore: coffeeStores.find((coffeeStore) => {
+        return coffeeStore.id === params.id //dynamic id
+      }),
+    },
   }
 }
 
-export function getStaticPaths() {
-  const paths = coffeeStores.map(coffeeStore => ({
-    params: {
-      id: coffeeStore.id.toString()
+export async function getStaticPaths() {
+  const coffeeStores = await fetchCoffeeStores()
+  const paths = coffeeStores.map((coffeeStore) => {
+    return {
+      params: {
+        id: coffeeStore.id,
+      },
     }
-  }))
+  })
   return {
     paths,
-    fallback: true
+    fallback: true,
   }
 }
+
+
 interface CoffeeStore {
   id: number
   name: string
@@ -53,7 +62,7 @@ export default function CoffeeStore({coffeeStore}: Props) {
   }
   const { address, name, neighbourhood, imgUrl } = coffeeStore
   function handleUpvoteButton() {
-    console.log("clicked");
+    console.log('clicked')
   }
   return (
     <div className={styles.layout}>
@@ -64,7 +73,7 @@ export default function CoffeeStore({coffeeStore}: Props) {
         <div className={styles.col1}>
           <div className={styles.backToHome}>
             <Link href="/">
-              Back to home
+              ← Back to home
             </Link>
           </div>
           <div className={styles.nameWrapper}>
@@ -72,7 +81,7 @@ export default function CoffeeStore({coffeeStore}: Props) {
           </div>
           <Image src={imgUrl} alt={name} width={600} height={360} className={styles.storeImg}/>
         </div>
-        <div className={cls("glass", styles.col2)}>
+        <div className={cls('glass', styles.col2)}>
           <div className={styles.iconWrapper}>
             <Image src="/static/icons/places.svg" width={24} height={24} alt={address} />
             <p className={styles.text}>{address}</p>
@@ -90,6 +99,5 @@ export default function CoffeeStore({coffeeStore}: Props) {
         </div>
       </div>
     </div>
-  );
-};
-  
+  )
+}

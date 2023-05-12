@@ -31,6 +31,9 @@ dependencies:
   typescript:
     specifier: 5.0.4
     version: 5.0.4
+  unsplash-js:
+    specifier: ^7.0.18
+    version: 7.0.18
 
 packages:
 
@@ -230,6 +233,10 @@ packages:
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
       tslib: 2.5.0
+    dev: false
+
+  /@types/content-type@1.1.5:
+    resolution: {integrity: sha512-dgMN+syt1xb7Hk8LU6AODOfPlvz5z1CbXpPuJE5ZrX9STfBOIXF09pEB8N7a97WT9dbngt3ksDCm6GW6yMrxfQ==}
     dev: false
 
   /@types/json5@0.0.29:
@@ -531,6 +538,11 @@ packages:
 
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+    dev: false
+
+  /content-type@1.0.5:
+    resolution: {integrity: sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==}
+    engines: {node: '>= 0.6'}
     dev: false
 
   /cross-spawn@7.0.3:
@@ -2268,6 +2280,14 @@ packages:
       has-bigints: 1.0.2
       has-symbols: 1.0.3
       which-boxed-primitive: 1.0.2
+    dev: false
+
+  /unsplash-js@7.0.18:
+    resolution: {integrity: sha512-R3HTszj9EFWVqubcI+ncukGJ4JusWLBKGk5ZbT7ZYcUjNpa5VkHgTh2qu2pWEVX00Br7OI9z60zyoIMVKXhrWg==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@types/content-type': 1.1.5
+      content-type: 1.0.5
     dev: false
 
   /untildify@4.0.0:
