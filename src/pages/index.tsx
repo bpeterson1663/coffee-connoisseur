@@ -7,6 +7,7 @@ import { Card } from '@/components'
 import coffeeStores from '../db/coffee-stores.json'
 import { CoffeeStore } from '@/models'
 import { fetchCoffeeStores } from '@/lib/coffee-stores'
+import useTrackLocation from '@/hooks/use-track-location'
 
 export async function getStaticProps() {
   // make fetch call here
@@ -18,19 +19,18 @@ export async function getStaticProps() {
       }
     }
   }
-  
 }
-
 
 interface Props {
   data: {
     coffeeStores: CoffeeStore[]
   }
 }
-export default function Home(props: Props) {
 
+export default function Home(props: Props) {
+  const { handleTrackLocation, latLong, locationErrorMsg, isLoading } = useTrackLocation()
   function handleOnBannerBtnClick() {
-    console.log('banner button clicke')
+    handleTrackLocation()
   }
 
   const { data } = props
@@ -44,14 +44,17 @@ export default function Home(props: Props) {
       </Head>
       <main className={styles.main}>
         <Banner
-          buttonText="View stores nearby"
+          buttonText={isLoading ? 'Loading...' : 'View stores nearby'}
           handleOnClick={handleOnBannerBtnClick}
         />
+
+        {locationErrorMsg && <p>Something went wrong: {locationErrorMsg}</p>}
         <div className={styles.heroImage}>
           <Image alt="Coffee Connoisseur" src="/static/hero-image.png" width={700} height={400} />
         </div>
+
         {coffeeStores.length > 0 && (
-          <>
+          <div className={styles.sectionWrapper}>
             <h2 className={styles.heading2}>Toronto Stores</h2>
             <div className={styles.cardLayout}>
               {data.coffeeStores.map(coffeeStore => (
@@ -63,7 +66,7 @@ export default function Home(props: Props) {
                   className={styles.card} />
               ))}
             </div>
-          </>
+          </div>
         )}
       </main>
     </>
